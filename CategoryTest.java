@@ -11,7 +11,7 @@ public class CategoryTest {
 	
 	 AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext();
 
-context.scan("com.shop.decoratives"); 
+context.scan("com"); 
 context.refresh();
  
 Categorydao categorydao=(Categorydao) context.getBean("categorydao");
