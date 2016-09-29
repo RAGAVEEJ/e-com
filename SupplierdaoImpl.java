@@ -9,6 +9,7 @@ import com.dao.Supplierdao;
 import com.model.Supplier;
 
 @Repository
+@Transactional
 public class SupplierdaoImpl  implements Supplierdao
 {
 	@Autowired
@@ -22,6 +23,7 @@ public class SupplierdaoImpl  implements Supplierdao
 		
 		this.sessionFactory = sessionFactory;
 	}
+	@Transactional
 	public boolean save(Supplier supplier) 
 	{
 		try
@@ -35,7 +37,7 @@ public class SupplierdaoImpl  implements Supplierdao
 		}
 		return true;
 	}
-		
+	@Transactional	
 	public boolean update(Supplier supplier) 
 	{
 		try
@@ -49,6 +51,7 @@ public class SupplierdaoImpl  implements Supplierdao
 		}
 		return true;
 	}
+	@Transactional
 	public boolean delete(String id) {
 		try
 		{
