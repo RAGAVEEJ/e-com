@@ -11,6 +11,7 @@ import com.model.Category;
 
 
 @Repository
+@Transactional
 public class CategorydaoImpl implements Categorydao 
 {
 	@Autowired
@@ -22,7 +23,7 @@ public class CategorydaoImpl implements Categorydao
 		{
 			this.sessionFactory= sessionFactory;
 		}
-	  
+	  @Transactional
 		public boolean save(Category category) {
 		try
 		{
@@ -35,7 +36,7 @@ public class CategorydaoImpl implements Categorydao
 		}
 		return true;
 	}
-
+@Transactional
 	public boolean update(Category category) {
 		try
 		{
@@ -48,7 +49,7 @@ public class CategorydaoImpl implements Categorydao
 		}
 		return true;
 	}
-
+@Transactional
 	public boolean delete(String id) {
 		try
 		{
@@ -61,7 +62,7 @@ public class CategorydaoImpl implements Categorydao
 		}
 		return true;
 	}
-
+@Transactional
 	public Category get(String id) {
 		String hql ="from Category where id = ' " + id +"'";
 		@SuppressWarnings("rawtypes")
@@ -74,9 +75,6 @@ public class CategorydaoImpl implements Categorydao
 		 return list.get(0);
 		 }
 			 
-	 public List<Category> list() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 
 
 }
