@@ -9,18 +9,18 @@ public class SupplierTest {
 public static void main(String[] args) {
 	AnnotationConfigApplicationContext context= new AnnotationConfigApplicationContext();
 	
-	context.scan("com.shop.decoratives"); 
+	context.scan("com"); 
 	context.refresh();
 	
 	Supplierdao supplierdao=(Supplierdao) context.getBean("supplierdao");
 	Supplier supplier= (Supplier) context.getBean("supplier");
 	
 	
-	supplier.setId("200");
-	supplier.setName("teakwood");
-	supplier.setAddress("no 45.adb st,xx city");
+	//supplier.setId("227");
+	//supplier.setName("teakwood");
+	//supplier.setAddress("agh city");
 	
-	supplierdao.save(supplier);
+	supplierdao.delete("227");
 	System.out.println("successfully inserted");
 		
 }

@@ -11,19 +11,18 @@ public class CategoryTest {
 	
 	 AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext();
 
-context.scan("com"); 
+context.scan("com.*"); 
 context.refresh();
  
 Categorydao categorydao=(Categorydao) context.getBean("categorydao");
 Category category=(Category) context.getBean("category");
- 
-category.setId("Fur001");
-category.setName("Furniture");
-category.setDescription("This is furniture");
+
+category.setId("170");
+category.setName("furniture");
+category.setDescription("it is furniture");
 
 categorydao.save(category);
 System.out.println("data inserted successfully");
  
  }
-	
 }
