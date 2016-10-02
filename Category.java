@@ -1,20 +1,41 @@
 package com.model;
 
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name="category")
+@Table(name = "CATEGORY")
 @Component
-public class Category {
-	@Id
+
+public class Category{
+@Id
 	private String id;
 	private String name;
 	private String description;
+	private Set<Product> products;
 	
+	@OneToMany(mappedBy="category",fetch = FetchType.EAGER)
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	
+	
+	
+	     
+	@Id
+	@Column(name = "ID")
 	public String getId() {
 		return id;
 	}
@@ -33,4 +54,6 @@ public class Category {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
 }
