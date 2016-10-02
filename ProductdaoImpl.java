@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.Productdao;
-
+import com.model.Category;
 import com.model.Product;
 
 @Repository
@@ -47,16 +47,12 @@ public class ProductdaoImpl implements Productdao {
 
 	}
 @Transactional
-	public boolean delete(String id) {
-		try {
-			sessionFactory.getCurrentSession().delete(get(id));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-
-	}
+	public void delete(String id) {
+	Product ProductToDelete = new Product();
+	ProductToDelete.setId(id);
+	sessionFactory.getCurrentSession().delete(ProductToDelete);
+}
+	
 @Transactional
 	public Product get(String id) {
 		String hql = "from  where id = ' " + id + "'";
