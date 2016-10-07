@@ -1,5 +1,7 @@
 package com.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,10 +16,10 @@ import com.model.Supplier;
 public class SupplierdaoImpl implements Supplierdao {
 	@Autowired
 	private Supplier supplier;
+	
 	@Autowired
 	private SessionFactory sessionFactory;
-
-	public SupplierdaoImpl(SessionFactory sessionFactory) {
+   public SupplierdaoImpl(SessionFactory sessionFactory) {
 
 		this.sessionFactory = sessionFactory;
 	}
@@ -46,5 +48,9 @@ public class SupplierdaoImpl implements Supplierdao {
 	Supplier Suppliertodelete = new Supplier();
 	Suppliertodelete.setId(id);
 	sessionFactory.getCurrentSession().delete(Suppliertodelete);
+}
+public List<Supplier> list() {
+	// TODO Auto-generated method stub
+	return null;
 }
 }

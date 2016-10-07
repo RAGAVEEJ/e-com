@@ -18,10 +18,10 @@ public class ProductdaoImpl implements Productdao {
 
 	@Autowired
 	private Product product;
+	
 	@Autowired
 	private SessionFactory sessionFactory;
-
-	public ProductdaoImpl(SessionFactory sessionFactory) {
+public ProductdaoImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 @Transactional

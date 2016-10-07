@@ -16,9 +16,9 @@ public class Userdaoimpl implements Userdao {
 
 	@Autowired
 	private Register register;
+	
 	@Autowired
 	private SessionFactory sessionFactory;
-
 	public Userdaoimpl(SessionFactory sessionFactory) {
 
 		this.sessionFactory = sessionFactory;
@@ -48,9 +48,9 @@ public class Userdaoimpl implements Userdao {
 	}
 
 	@Transactional
-	public boolean delete(String id) {
+	public boolean delete(String un) {
 		Register Registertodelete = new Register();
-		Registertodelete.setId(id);
+		Registertodelete.setUsername(un);
 		try {
 			sessionFactory.getCurrentSession().delete(Registertodelete);
 		} catch (Exception e) {
@@ -61,8 +61,8 @@ public class Userdaoimpl implements Userdao {
 	}
 
 	@Transactional
-	public Register get(String id) {
-		String hql = "from RegisterModel where id=" + "'" + id + "'";
+	public Register get(String username) {
+		String hql = "from Register where username=" + "'" + username + "'";
 		return getRegister(hql);
 
 	}
@@ -74,8 +74,8 @@ public class Userdaoimpl implements Userdao {
 	}
 
 	@Transactional
-	public Register isValidUser(String id, String password) {
-		String hql = "from Register where id=" + "'" + id + "'" + "and" + "password = " + "'" + password + "'";
+	public Register isValidUser(String username, String password) {
+		String hql = "from Register where username=" + "'" + username + "'" + "and" + "password = " + "'" + password + "'";
 		return getRegister(hql);
 	}
 
