@@ -1,4 +1,5 @@
 package com.config;
+
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -26,10 +27,8 @@ import com.model.Product;
 import com.model.Register;
 import com.model.Supplier;
 
-
-
 @Configuration
-@ComponentScan("com.*")
+@ComponentScan("com.shop.decoratives")
 @EnableTransactionManagement
 public class ApplicationContextConfig {
 	@Bean(name = "dataSource")
