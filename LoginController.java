@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,7 +47,7 @@ public class LoginController {
 	@Autowired
 	private HttpSession session;
 
-	@RequestMapping("/login")
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ModelAndView userlogin(@RequestParam(value="username") String username,
 			@RequestParam(value="password") String password)
 	{
@@ -64,6 +65,7 @@ public class LoginController {
 		{
 		
 			mv = new ModelAndView("admin");
+			
 			session.setAttribute("categoryList", categorydao.list());
 		    session.setAttribute("supplierList", supplierdao.list());
 		    session.setAttribute("productList", productdao.list());
