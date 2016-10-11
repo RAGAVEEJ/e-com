@@ -1,4 +1,4 @@
-/*package com.controller;
+package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +36,7 @@ public class AdminController {
 	@Autowired
 	private Productdao productdao;
 	
-	@RequestMapping("managecategories")
+	@RequestMapping("/Category")
 	public ModelAndView categories(){
 		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("category", category);
@@ -44,7 +44,7 @@ public class AdminController {
 		mv.addObject("categoryList", categorydao.list());
 		return mv;
 	}
-	@RequestMapping("manageproducts")
+	@RequestMapping("/Product")
 	public ModelAndView products(){
 		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("product", product);
@@ -52,15 +52,14 @@ public class AdminController {
 		mv.addObject("productList", productdao.list());
 		return mv;		
 	}
-	@RequestMapping("managesupplier")
+	@RequestMapping("/Supplier")
 	public ModelAndView supplier(){
 	ModelAndView mv = new ModelAndView("home");
 	mv.addObject("supplier", supplier);
-	mv.addObject("isAdminClickedSupplier", "true");
+	mv.addObject("isAdminClickedSuppliers", "true");
 	mv.addObject("supplierList", supplierdao.list());
 	return mv;
 	}
 }
 
 
-*/

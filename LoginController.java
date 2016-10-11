@@ -1,5 +1,6 @@
 package com.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,39 +48,46 @@ public class LoginController {
 	@Autowired
 	private HttpSession session;
 
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView userlogin(@RequestParam(value="username") String username,
-			@RequestParam(value="password") String password)
-	{
-	
-	register = userdao.isValidUser(username, password);
-	ModelAndView mv= null;
-	
-	if(register == null) {
-		mv = new ModelAndView("Home"); 
-		mv.addObject("error message", "please enter valid details");
-	} 
-	else
-	{
-		if(register.getRole().equals("ROLE_ADMIN"))
-		{
-		
-			mv = new ModelAndView("admin");
-			
-			session.setAttribute("categoryList", categorydao.list());
-		    session.setAttribute("supplierList", supplierdao.list());
-		    session.setAttribute("productList", productdao.list());
-			
-		    session.setAttribute("category", category);
-		    session.setAttribute("supplier", supplier);
-		    session.setAttribute("product",product);
-		    
-	} 
-	else if(register.getRole().equals("ROLE_USER"))
-		mv = new ModelAndView("Home");
-		session.setAttribute("username", register.getUsername());
-	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView userlogin(@RequestParam(value = "username") String username,
+			@RequestParam(value = "password") String password) {
 
-	return mv;
-}
+		ModelAndView mv = new ModelAndView("home");
+		register = userdao.isValidUser(username, password);
+
+		if (register != null) {
+			register = userdao.get(username);
+			session.setAttribute("loggedInUser", register.getUsername());
+			session.setAttribute("register", register);
+
+			
+			if (register.getRole().equals("ROLE_ADMIN")) {
+                 mv.addObject("isAdmin", "true");
+				session.setAttribute("categoryList", categorydao.list());
+				session.setAttribute("supplierList", supplierdao.list());
+				session.setAttribute("productList", productdao.list());
+
+				session.setAttribute("category", category);
+				session.setAttribute("supplier", supplier);
+				session.setAttribute("product", product);
+
+			} else if (register.getRole().equals("ROLE_USER"))
+				mv = new ModelAndView("Home");
+			session.setAttribute("username", register.getUsername());
+		}
+
+		return mv;
+	}
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpServletRequest request,HttpSession session) {
+		ModelAndView mv = new ModelAndView("/home");
+		session.invalidate();
+		session = request.getSession(true);
+		session.setAttribute("category", category);
+		session.setAttribute("categoryList", categorydao.list());
+		
+		mv.addObject("logoutmessage", "you logged out successfully");
+		mv.addObject("loggedout", "true");
+		return mv;
+	}
 }
