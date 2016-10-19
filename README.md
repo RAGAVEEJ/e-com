@@ -1,1 +1,1 @@
-# e-com
+I have created a e-com shopping website named "HOME DECOR". In Frontend i have used bootstrap, css,jstl tags to create a responsive webpages.In backend i have used hibernate and H2 database.I have created this Java application using Eclipse tool.
