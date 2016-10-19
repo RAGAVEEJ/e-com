@@ -1,93 +1,102 @@
-package com.controller;
+package com.niit.shopcart.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.dao.Categorydao;
-import com.dao.Productdao;
-import com.dao.Supplierdao;
-import com.dao.Userdao;
-import com.model.Category;
-import com.model.Product;
-import com.model.Register;
-import com.model.Supplier;
+import com.niit.shopcart.dao.UserDAO;
+/*import com.niit.shopcart.dao.CategoryDAO;
+import com.niit.shopcart.dao.ProductDAO;
+import com.niit.shopcart.dao.SupplierDAO;
+import com.niit.shopcart.model.Category;
+import com.niit.shopcart.model.Product;
+import com.niit.shopcart.model.Supplier;
+*/
+import com.niit.shopcart.model.UserDetails;
 
 @Controller
 public class LoginController {
 	@Autowired
-	private Categorydao categorydao;
-
+	UserDetails userDetails;
+	@Autowired(required=true)
+	UserDAO userDAO;
+	/*@Autowired
+	Category category;
 	@Autowired
-	private Category category;
-
+	CategoryDAO categoryDAO;
 	@Autowired
-	private Productdao productdao;
-
+	Supplier supplier;
 	@Autowired
-	private Product product;
-
+	SupplierDAO supplierDAO;
 	@Autowired
-	private Supplierdao supplierdao;
-
+	Product product;
 	@Autowired
-	private Supplier supplier;
-
-	@Autowired
-	private Userdao userdao;
-
-	@Autowired
-	Register register;
-
-	@Autowired
-	private HttpSession session;
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView userlogin(@RequestParam(value = "username") String username,
+	ProductDAO productDAO;*/
+	
+	
+	
+	
+	@RequestMapping("/Login")
+	public ModelAndView Login()
+	{
+		System.out.println("login page");
+		ModelAndView mv = new ModelAndView("Login");
+		mv.addObject("userDetails", userDetails);
+		return mv;
+	}
+	
+	/*@RequestMapping("/isValidUser")
+	public ModelAndView showMessage(@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password) {
+		System.out.println("in controller");
 
-		ModelAndView mv = new ModelAndView("home");
-		register = userdao.isValidUser(username, password);
-
-		if (register != null) {
-			register = userdao.get(username);
-			session.setAttribute("loggedInUser", register.getUsername());
-			session.setAttribute("register", register);
-
-			
-			if (register.getRole().equals("ROLE_ADMIN")) {
-                 mv.addObject("isAdmin", "true");
-				session.setAttribute("categoryList", categorydao.list());
-				session.setAttribute("supplierList", supplierdao.list());
-				session.setAttribute("productList", productdao.list());
-
-				session.setAttribute("category", category);
-				session.setAttribute("supplier", supplier);
-				session.setAttribute("product", product);
-
-			} else if (register.getRole().equals("ROLE_USER"))
-				mv = new ModelAndView("Home");
-			session.setAttribute("username", register.getUsername());
+		String message;
+		ModelAndView mv ;
+		if (userDAO.isValidUser(username,password)) 
+		{
+			message = "Successfully Logged in";
+			 mv = new ModelAndView("user");
+		} else{
+			message="Please enter a valid username and password";
+			mv=new ModelAndView("Login");
 		}
 
+		mv.addObject("message", message);
+		mv.addObject("username", username);
 		return mv;
 	}
-	@RequestMapping("/logout")
-	public ModelAndView logout(HttpServletRequest request,HttpSession session) {
-		ModelAndView mv = new ModelAndView("/home");
-		session.invalidate();
-		session = request.getSession(true);
-		session.setAttribute("category", category);
-		session.setAttribute("categoryList", categorydao.list());
+*/	
+	@RequestMapping(value="/isValidUser")
+	public ModelAndView login(@RequestParam(value="username") String username,
+			@RequestParam(value="password") String password,HttpSession session){
+		System.out.println("login controller");
+		userDetails = userDAO.isValidUser(username, password);
+		ModelAndView mv = null;
+		if(userDetails == null){
+        mv = new ModelAndView ("Login");
+		mv.addObject("message", "please try again");
+	} else {
+		if (userDetails.getRole().equals("ROLE_ADMIN")){
+			mv = new ModelAndView("Admin");
+		/*session.setAttribute("categoryList", categoryDao.list());
+		session.setAttribute("supplierList", supplierDao.list());
+		session.setAttribute("productList", productDao.list());
 		
-		mv.addObject("logoutmessage", "you logged out successfully");
-		mv.addObject("loggedout", "true");
-		return mv;
+		session.setAttribute("category", category);
+		session.setAttribute("supplier", supplier);
+		session.setAttribute("product", product);
+	*/
+			}
+	else if (userDetails.getRole().equals("ROLE_USER")){
+			mv = new ModelAndView("Product");
+		session.setAttribute("username", userDetails.getUsername());
+	}
+	}
+	return mv;	
 	}
 }
+
+

@@ -1,82 +1,71 @@
-package com.controller;
+package com.niit.shopcart.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.dao.Categorydao;
-import com.model.Category;
+import com.niit.shopcart.dao.CategoryDAO;
+import com.niit.shopcart.model.Category;
+import com.niit.shopcart.utils.Util;
 
-import sun.util.logging.resources.logging;
 
 @Controller
 public class CategoryController {
-	private static Logger log = LoggerFactory.getLogger("CategoryController.class");
-
-	@Autowired
-	private Categorydao categorydao;
-
-	@Autowired
+	
+	@Autowired(required=true)
+	private CategoryDAO categoryDAO;
+	
+	@Autowired(required=true)
 	private Category category;
-
-	@Autowired
-	Model mv;
-
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
-	public String listcategory(Model model) {
-		log.debug("starting of the method listCategories");
-		model.addAttribute("category", category);
-		model.addAttribute("categoryList", this.categorydao.list());
-		log.debug("end of the method listCategories");
-		return "category";
+	
+	
+	@RequestMapping(value="/categories")
+	public String listcategory(Model model)
+	{
+	model.addAttribute("category",category);
+	model.addAttribute("categoryList",this.categoryDAO.list());
+	return "categories";
 	}
+	
+	
+	@RequestMapping(value="/addcategory")
+	public String addcategory(@ModelAttribute("category") Category category,Model model)
+	{
+		/*String newcid = Util.removeComma(category.getId());
+		category.setId(newid);*/
+	categoryDAO.saveOrUpdate(category);
+	/*model.addAttribute("category", category);
+	model.addAttribute("categoryList", this.categoryDAO.list());*/
+	return "redirect:/categories";
+    }
 
-	@RequestMapping(value = "/category/add", method = RequestMethod.POST)
-	public String addcategory(@ModelAttribute("category") Category category) {
-		log.debug("starting of the method addCategory");
-		if (categorydao.save(category) == true) {
-			mv.addAttribute("msg", "successfully added the category");
-		} else {
-			mv.addAttribute("msg", "cannot add the category");
-		}
-
-		log.debug("ending of the method addCategory");
+	
+	
+	@RequestMapping("/removecategory/{id}")
+	public String deleteCategory(@PathVariable("id") String id, ModelMap model)
+	
+	{
+		System.out.println("delete");
+		categoryDAO.delete(id);
+		return "redirect:/categories";
+	}
+	
+	
+	@RequestMapping("/editcategory/{id}")
+	public String editCategory(@PathVariable("id")String id, Model model)
+	{
+		model.addAttribute("category",this.categoryDAO.get(id));
+		/*model.addAttribute("category", category);*/
+		model.addAttribute("categoryList", this.categoryDAO.list());
 		
-		return "category";
+		return "categories";
 	}
-
-	@RequestMapping("/category/remove/{id}")
-	public ModelAndView deletecategory(@PathVariable("id") String id) throws Exception {
-
-		boolean flag = categorydao.delete(id);
-		ModelAndView mv = new ModelAndView("category");
-		String msg = "Successfull done the operation";
-		if (flag != true) {
-			msg = "operation could not success";
-		}
-		mv.addObject("msg", msg);
-		return mv;
-	}
-
-	@RequestMapping("/category/edit/{id}")
-	public String editcategory(@ModelAttribute("category") Category category) {
-		log.debug("starting of the method editCategory");
-		if (categorydao.update(category) == true) {
-			mv.addAttribute("msg", "successfully updated the category");
-		} else {
-			mv.addAttribute("msg", "cannot update the category");
-		}
-
-		log.debug("end of the method editCategory");
-		return "category";
-	}
-
+		
 }

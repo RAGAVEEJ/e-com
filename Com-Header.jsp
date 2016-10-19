@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -37,16 +38,16 @@ img {
 
 </style>
 </head>
-<body background="images/background.jpg">
-<img src="images/logo1.jpg" class="img-circle" width="300" height="80" align="left">
+<body background="C:\Users\Admin\eclipse mars\workspacenew\myhome-backend\src\main\webapp\images\background.jpg">
+<img src="C:\Users\Admin\eclipse mars\workspacenew\myhome-backend\src\main\webapp\images\logo1.jpg" class="img-circle" width="200" height="80" align="left">
 <h1><I><center>HOME DECOR</center></I></h1>
 <ul>
-  <li><a href="Home.jsp">HOME</a></li>
-  <li><a href="NewAboutus.jsp">ABOUT US</a></li>
-  <li><a href="NewProduct.jsp">PRODUCTS</a></li>
-  <li><a href="NewContactus.jsp">CONTACT US</a></li>
-  <li><a href="NewLogin.jsp">LOGIN</a></li>
-  <li><a href="NewReg.jsp">REGISTER</a></li>
+  <li><a href="index">HOME</a></li>
+  <li><a href="About">ABOUT US</a></li>
+  <li><a href="Product">PRODUCTS</a></li>
+  <li><a href="Contact">CONTACT US</a></li>
+  <li><a href="Login">LOGIN</a></li>
+  <li><a href="Register">REGISTER</a></li>
 </ul>
 
 

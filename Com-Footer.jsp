@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Home Decor</title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,7 +18,7 @@ margin-top: 700px;
  </style>
 </head>
 
-<body background="images/background.jpg">
+<body background="C:\Users\Admin\eclipse mars\workspacenew\myhome-backend\src\main\webapp\images\background.jpg">
 <div class= "footer">
 <footer>
 <div class="navbar-text pull-right">
