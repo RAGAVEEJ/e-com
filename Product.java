@@ -1,22 +1,35 @@
-/*package com.niit.shopcart.model;
+package com.niit.shopcart.model;
 
+import javax.persistence.Access;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.AccessType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-@Entity
+
 @Component
+@Entity
 public class Product {
+	
+	@Id
+	@Column
 	private String  id;
-	private String name;    
+	
+	@Column
+	private String name;   
+	
+	@Column
 	private String description;
+	
+	@Column
 	private long price;
 	
-	@Transient
+	/*@Transient
 	private MultipartFile image;
 	
 	public MultipartFile getImage() {
@@ -24,7 +37,7 @@ public class Product {
 	}
 	public void setImage(MultipartFile image) {
 		this.image = image;
-	}
+	}*/
 	
 	private String category_id;
 	private String supplier_id;
@@ -41,22 +54,23 @@ public class Product {
 	public void setSupplier_id(String supplier_id) {
 		this.supplier_id = supplier_id;
 	}
-
 	
+	@ManyToOne
+    @JoinColumn(name="category_id", nullable = false, updatable = false, insertable = false)
    	private Category category;
 	
-   	@ManyToOne
-    @JoinColumn(name="category_id", nullable = false, updatable = false, insertable = false)
 	public Category getCategory() {
 		return category;
 	}
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	private Supplier supplier;
+	
 	
 	@ManyToOne
     @JoinColumn(name="supplier_id",nullable = false, updatable = false, insertable = false)
+	private Supplier supplier;
+	
 	public Supplier getSupplier() {
 		return supplier;
 	}
@@ -64,7 +78,7 @@ public class Product {
 		this.supplier = supplier;
 	}
 	
-	@Id
+
 	public String getId() {
 		return id;
 	}
@@ -92,4 +106,3 @@ public class Product {
 		this.price = price;
 	}
 }
-*/

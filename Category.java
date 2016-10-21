@@ -10,8 +10,8 @@ import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
-@Entity
 @Component
+@Entity
 public class Category {
 	
 	@Id
@@ -24,7 +24,16 @@ public class Category {
 	@Column
 	private String description;
 	
+	@OneToMany(mappedBy="category" ,fetch=FetchType.EAGER)
+	private Set<Product> products;
 
+	public Set<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	
 	public String getId() {
 		return id;
 	}

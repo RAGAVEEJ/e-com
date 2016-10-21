@@ -16,10 +16,9 @@ import com.niit.shopcart.model.Supplier;
 @EnableTransactionManagement
 @Repository("supplierDAO")
 public class SupplierDAOImpl implements SupplierDAO {
+	
 	@Autowired
 	private SessionFactory sessionFactory;
-
-	@Autowired
 	public SupplierDAOImpl(SessionFactory sessionFactory) 
 	{
 		try 

@@ -1,15 +1,17 @@
 package com.niit.shopcart.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
-@Entity
 @Component
+@Entity
 public class Supplier {
 
 	@Id
@@ -22,8 +24,14 @@ public class Supplier {
 	@Column
 	private String address;
 
-	
-	
+	@OneToMany(mappedBy="supplier" ,fetch=FetchType.EAGER)
+	private Set<Product> products;
+	public Set<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 	public String getId() {
 		return id;
 	}
